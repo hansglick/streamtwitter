@@ -3,7 +3,7 @@ import json
 import os
 
 Root = '/home/osboxes/proj/streamtwitter/'
-FolderProject ='trackIran'
+FolderProject ='trackCrispation'
 
 AbsConfigPath = os.path.join(Root,FolderProject,'config.json')
 

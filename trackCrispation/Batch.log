@@ -1,0 +1,6 @@
+{'BatchDate': '2020-01-26 15:22:17', 'StartingDate': '2020-01-26 15:17:13', 'EndingDate': '2020-01-26 15:21:53', 'Delay': '0h4min', 'nRT': 328, 'nInf': 136, 'nFam': 153, 'nUse': 308}
+{'BatchDate': '2020-01-26 17:15:18', 'StartingDate': '2020-01-26 15:21:55', 'EndingDate': '2020-01-26 17:15:05', 'Delay': '1h53min', 'nRT': 7245, 'nInf': 990, 'nFam': 1210, 'nUse': 5671}
+{'BatchDate': '2020-01-26 17:43:40', 'StartingDate': '2020-01-26 17:15:06', 'EndingDate': '2020-01-26 17:43:28', 'Delay': '0h28min', 'nRT': 1938, 'nInf': 424, 'nFam': 508, 'nUse': 1551}
+{'BatchDate': '2020-01-26 18:30:03', 'StartingDate': '2020-01-26 17:43:28', 'EndingDate': '2020-01-26 18:29:54', 'Delay': '0h46min', 'nRT': 2759, 'nInf': 519, 'nFam': 612, 'nUse': 2305}
+{'BatchDate': '2020-01-26 19:10:59', 'StartingDate': '2020-01-26 18:29:54', 'EndingDate': '2020-01-26 19:10:47', 'Delay': '0h40min', 'nRT': 2838, 'nInf': 523, 'nFam': 609, 'nUse': 2348}
+{'BatchDate': '2020-01-26 19:40:34', 'StartingDate': '2020-01-26 19:10:47', 'EndingDate': '2020-01-26 19:40:19', 'Delay': '0h29min', 'nRT': 2098, 'nInf': 434, 'nFam': 523, 'nUse': 1752}

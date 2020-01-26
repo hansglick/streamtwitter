@@ -24,4 +24,3 @@ from fun import *
 AuthFilename = os.path.join(Root,AuthFilename)
 
 ListenningMessages(AuthFilename,TrendingTopics,LangList)
-
