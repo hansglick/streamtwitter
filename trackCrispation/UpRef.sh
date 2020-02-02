@@ -12,3 +12,11 @@
 
 /home/osboxes/anaconda3/bin/jupyter nbconvert --to script /home/osboxes/proj/streamtwitter/trackCrispation/UpdateRef.ipynb
 /home/osboxes/anaconda3/envs/twitter/bin/python /home/osboxes/proj/streamtwitter/trackCrispation/UpdateRef.py
+
+
+/home/osboxes/anaconda3/bin/jupyter nbconvert --to script /home/osboxes/proj/streamtwitter/trackCrispation/DefineGraph.ipynb
+/home/osboxes/anaconda3/envs/twitter/bin/python /home/osboxes/proj/streamtwitter/trackCrispation/DefineGraph.py
+
+
+/home/osboxes/anaconda3/bin/jupyter nbconvert --to script /home/osboxes/proj/streamtwitter/trackCrispation/CleaningRT.ipynb
+/home/osboxes/anaconda3/envs/twitter/bin/python /home/osboxes/proj/streamtwitter/trackCrispation/CleaningRT.py

@@ -45,6 +45,12 @@ from fun import *
 print("Load Config variables")
 
 
+# In[ ]:
+
+
+print("Load Data")
+
+
 # In[94]:
 
 
@@ -72,9 +78,16 @@ RefRTRows = len(RefRT)
 
 minbassine = ISdf.BassineID.min()
 maxbassine = ISdf.BassineID.max()
+print("Define Metaparameters")
 
 
 # # Build KeptTweets
+
+# In[ ]:
+
+
+print("Building Keep tweets")
+
 
 # In[97]:
 
@@ -103,6 +116,12 @@ RefRTOKRows = len(RefRTOK)
 
 
 # # RefFam
+
+# In[ ]:
+
+
+print("Building RefFam")
+
 
 # In[100]:
 
@@ -162,6 +181,7 @@ RefRTTOKKODis = RefRTTemp.status.value_counts().tolist()
 # In[107]:
 
 
+print("Sauvegarde")
 PickleDump(os.path.join(Root,FolderProject,"RefFam.pkl"),RefFamTemp)
 PickleDump(os.path.join(Root,FolderProject,"RefRT.pkl"),RefRTTemp)
 

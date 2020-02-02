@@ -9,3 +9,5 @@
 {'BatchDate': '2020-01-27 19:16:42', 'StartingDate': '2020-01-27 09:32:37', 'EndingDate': '2020-01-27 19:16:27', 'Delay': '9h43min', 'nRT': 31373, 'nInf': 2374, 'nFam': 3066, 'nUse': 23086}
 {'BatchDate': '2020-01-28 22:37:15', 'StartingDate': '2020-01-27 19:16:28', 'EndingDate': '2020-01-28 22:36:54', 'Delay': '27h20min', 'nRT': 89088, 'nInf': 4598, 'nFam': 6346, 'nUse': 58169}
 {'BatchDate': '2020-01-29 01:16:56', 'StartingDate': '2020-01-28 22:36:54', 'EndingDate': '2020-01-29 01:16:38', 'Delay': '2h39min', 'nRT': 9112, 'nInf': 1115, 'nFam': 1337, 'nUse': 7462}
+{'BatchDate': '2020-01-29 20:05:59', 'StartingDate': '2020-01-29 01:16:39', 'EndingDate': '2020-01-29 20:05:39', 'Delay': '18h49min', 'nRT': 64653, 'nInf': 4336, 'nFam': 5964, 'nUse': 39049}
+{'BatchDate': '2020-01-30 00:22:55', 'StartingDate': '2020-01-29 20:05:39', 'EndingDate': '2020-01-30 00:15:02', 'Delay': '4h9min', 'nRT': 20377, 'nInf': 2159, 'nFam': 2737, 'nUse': 13720}

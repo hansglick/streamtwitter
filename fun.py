@@ -327,13 +327,18 @@ def PickleDump(filename,objitem):
 
 
 
-def LoadPickleOrInit(path):
+def LoadPickleOrInit(path,typeobj="df"):
 
     DoesExist = os.path.isfile(path)
     if DoesExist:
         SomeObj = PickleLoad(path)
     else:
-        SomeObj = pd.DataFrame()
+        if typeobj=="df":
+            SomeObj = pd.DataFrame()
+        if typeobj=="dic":
+            SomeObj = {}
+        if typeobj=="0":
+            SomeObj = 0
 
     return SomeObj
 
@@ -488,3 +493,135 @@ def ExtractFirstBID(RefRT,OldISdf,bassine_size):
         FirstBassineID = OldISdf.BassineID.max()+1
     
     return FirstBassineID
+
+
+
+
+
+
+
+def DefineFirstLastDate(rtdf,StepSize,OldListOfTMResults):
+
+    lastdate = rtdf.TWEETUNIXEPOCH.max()
+
+    if len(OldListOfTMResults) == 0:
+        firstdate = rtdf.TWEETUNIXEPOCH.min()
+    else:
+        LastTimeMark = max([v["TimeMark"] for k,v in OldListOfTMResults.items()])
+        firstdate = LastTimeMark + StepSize
+
+    return firstdate,lastdate
+
+
+
+
+def BuildTweetsAuthorFromTimeMark(randomtm,WindowSize,StepSize,rtdf):
+    
+    periods = ExtractTheTwoPeriods(randomtm,WindowSize,StepSize)
+    debut,fin = periods["TweetWindow"]
+    myfilter = (rtdf.TWEETUNIXEPOCH>=debut) & (rtdf.TWEETUNIXEPOCH<=fin)
+    temprtdf = rtdf.copy()[myfilter]
+    temprtdf.reset_index(drop=True,inplace=True)
+    
+    # Modifier authoridname et tweetidname
+    #TweetsAuthorsDF = temprtdf.groupby(authoridname)[tweetidname].apply(list).reset_index()
+    TweetsAuthorsDF = temprtdf.groupby(["AUTHORID","AUTHORTWEETID"]).size().reset_index().rename(columns={0: "f"})
+    
+    
+    return TweetsAuthorsDF
+
+
+
+def BuildLinksDocFromTimeMark(randomtm,WindowSize,StepSize,rtdf):
+    periods = ExtractTheTwoPeriods(randomtm,WindowSize,StepSize)
+    debut,fin = periods["GraphWindow"]
+    myfilter = (rtdf.TWEETUNIXEPOCH>=debut) & (rtdf.TWEETUNIXEPOCH<=fin)
+    temprtdf = rtdf.copy()[myfilter]
+    temprtdf.reset_index(drop=True,inplace=True)
+    list_of_authors = temprtdf.groupby('USERID')['AUTHORID'].apply(list)
+    LinksDic = GetLinksFromPeriod(list_of_authors)
+    return LinksDic
+
+
+def ListOfTMTreatment(ListOfTM,WindowSize,StepSize,rtdf,verbose=False):
+
+    i = 1
+    totali = len(ListOfTM)
+    TimeMarkResultsDic = {}
+    for randomtm in ListOfTM:
+        if verbose:
+            print("Period : ",str(i),"/",str(totali))
+        i = i + 1
+        
+        LinksDic = BuildLinksDocFromTimeMark(randomtm,WindowSize,StepSize,rtdf)
+        TweetsAuthorsDF = BuildTweetsAuthorFromTimeMark(randomtm,WindowSize,StepSize,rtdf)
+        TimeMarkResultsDic[randomtm] = {"Links":LinksDic,
+                                        "Tweets":TweetsAuthorsDF,
+                                        "TimeMark":randomtm,
+                                        "LinksWindow":(randomtm - WindowSize,randomtm),
+                                        "TweetsWindow":(randomtm - StepSize,randomtm)}
+
+    return TimeMarkResultsDic
+
+
+
+
+def GetLinksFromPeriod(list_of_authors):
+    
+    L = []
+    for SetOfIds in list_of_authors:
+        if len(SetOfIds)>1:
+            L = L + ExtractCleanLinksFromSets(SetOfIds)
+    
+    linkscompteur = {}
+    for item in L:
+        linkscompteur[item[0]] = linkscompteur.get(item[0],0) + item[1]
+    
+    return linkscompteur
+
+
+
+def ExtractCleanLinksFromSets(SetOfIds):
+    SetOfIds = [int(item) for item in SetOfIds]
+    RawLinks = ExtractRawLinks(SetOfIds)
+    CleanLinks = [ExplicitLink(item) for item in RawLinks]
+    return CleanLinks
+
+def ExtractRawLinks(SetOfIds):
+    
+    x = np.array(SetOfIds)
+    comptage = np.unique(x,return_counts=True)
+    list_of_tuples = np.vstack(comptage).T.tolist()
+    combinations = list(itertools.combinations(list_of_tuples,2))
+    
+    return combinations
+
+def ExplicitLink(x):
+    weight = min([item[1] for item in x])
+    link = tuple(item[0] for item in x)
+    return link,weight
+
+
+def DefineTimeMarks(lastdate,firstdate,step,window):
+
+    mark0 = firstdate + window
+    start = mark0
+    L = [start]
+
+    while(True):
+        newmark = start+step
+        if newmark>lastdate:
+            break
+        else:
+            L.append(newmark)
+            start=newmark
+
+    return L
+
+
+def ExtractTheTwoPeriods(timemark,WindowSize,StepSize):
+    res = {"GraphWindow":(timemark-WindowSize,timemark),
+           "TweetWindow":(timemark-StepSize,timemark)}
+    return res
+
+
